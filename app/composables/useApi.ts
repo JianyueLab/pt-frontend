@@ -1,3 +1,5 @@
+const BASE = "https://pt-api.jianyuelab.net";
+
 export type AsnData = {
   asn: number;
   name: string;
@@ -36,20 +38,20 @@ export type RankEntry = {
 };
 
 export const useAsn = (asn: Ref<string | number>) =>
-  useFetch<AsnData>(() => `/api/v1/asn/${asn.value}`, {
+  useFetch<AsnData>(() => `${BASE}/api/v1/asn/${asn.value}`, {
     watch: [asn],
     lazy: true,
     server: false,
   });
 
 export const useRankPrefix = () =>
-  useFetch<{ v4: RankEntry[]; v6: RankEntry[] }>("/api/v1/rank/prefix", {
+  useFetch<{ v4: RankEntry[]; v6: RankEntry[] }>(`${BASE}/api/v1/rank/prefix`, {
     lazy: true,
     server: false,
   });
 
 export const usePrefixCount = () =>
-  useFetch<{ prefix_count: number }>("/api/v1/prefixes/count", {
+  useFetch<{ prefix_count: number }>(`${BASE}/api/v1/prefixes/count`, {
     lazy: true,
     server: false,
   });

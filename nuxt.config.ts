@@ -15,7 +15,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: "Player Tools — JianYueLab",
+      title: "Player Tools — JianyueLab",
       link: [
         {
           rel: "icon",
