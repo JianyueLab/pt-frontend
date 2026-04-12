@@ -2,5 +2,5 @@
 @import "@nuxt/ui";
 
 :root {
-  --ui-radius: 0rem;
+  --ui-radius: 0.5rem;
 }

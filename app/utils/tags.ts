@@ -8,9 +8,24 @@ export const TAGS: Record<number, string> = {
   7: "IX_RS",
   8: "Hosting",
   9: "Direct Feed",
-}
+};
+
+export const TAG_COLORS: Record<number, "primary" | "secondary" | "success" | "info" | "warning" | "error" | "neutral"> = {
+  1: "primary",
+  2: "info",
+  3: "success",
+  4: "neutral",
+  5: "info",
+  6: "warning",
+  7: "neutral",
+  8: "warning",
+  9: "success",
+};
 
 export function parseTags(raw: string) {
-  if (!raw) return []
-  return raw.split(",").map(Number).filter(n => TAGS[n])
+  if (!raw) return [];
+  return raw
+    .split(",")
+    .map(Number)
+    .filter((n) => TAGS[n]);
 }
