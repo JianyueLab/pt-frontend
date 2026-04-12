@@ -3,11 +3,6 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  routeRules: {
-    "/api/v1/**": {
-      proxy: `${process.env.API_BASE ?? "https://pt-api.jianyuelab.net"}/api/v1/**`,
-    },
-  },
   css: ["./app/assets/global.css"],
   modules: ["@nuxt/ui", "@nuxtjs/i18n"],
   icon: {
