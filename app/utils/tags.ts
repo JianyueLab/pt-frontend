@@ -10,7 +10,10 @@ export const TAGS: Record<number, string> = {
   9: "Direct Feed",
 };
 
-export const TAG_COLORS: Record<number, "primary" | "secondary" | "success" | "info" | "warning" | "error" | "neutral"> = {
+export const TAG_COLORS: Record<
+  number,
+  "primary" | "secondary" | "success" | "info" | "warning" | "error" | "neutral"
+> = {
   1: "primary",
   2: "info",
   3: "success",

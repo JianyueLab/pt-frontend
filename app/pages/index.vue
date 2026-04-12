@@ -1,8 +1,12 @@
 <template>
-  <div class="min-h-[60vh] flex flex-col items-center justify-center py-20 space-y-8">
+  <div
+    class="min-h-[60vh] flex flex-col items-center justify-center py-20 space-y-8"
+  >
     <div class="text-center space-y-3">
       <AppLogo class="h-12 mx-auto" />
-      <h1 class="text-4xl font-bold text-highlighted tracking-tight">Player Tools</h1>
+      <h1 class="text-4xl font-bold text-highlighted tracking-tight">
+        Player Tools
+      </h1>
       <p class="text-muted">BGP routing data for AS215172 (MOEDOVE)</p>
     </div>
 
@@ -15,14 +19,21 @@
         class="flex-1"
         icon="i-lucide-search"
       />
-      <UButton type="submit" size="lg" color="primary" icon="i-lucide-arrow-right">
+      <UButton
+        type="submit"
+        size="lg"
+        color="primary"
+        icon="i-lucide-arrow-right"
+      >
         Lookup
       </UButton>
     </form>
 
     <p v-if="count" class="text-sm text-dimmed">
       Tracking
-      <span class="text-highlighted font-medium">{{ count.prefix_count.toLocaleString() }}</span>
+      <span class="text-highlighted font-medium">{{
+        count.prefix_count.toLocaleString()
+      }}</span>
       prefixes
     </p>
   </div>

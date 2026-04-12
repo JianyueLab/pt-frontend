@@ -32,7 +32,9 @@
       >
         <UIcon name="i-lucide-building-2" class="text-dimmed mt-0.5 shrink-0" />
         <div>
-          <div class="text-dimmed text-xs uppercase tracking-wide mb-1">Org</div>
+          <div class="text-dimmed text-xs uppercase tracking-wide mb-1">
+            Org
+          </div>
           <div class="font-medium">{{ d.org.name }}</div>
           <div class="text-dimmed">{{ d.org.handle }}</div>
         </div>
@@ -43,7 +45,9 @@
       >
         <UIcon name="i-lucide-handshake" class="text-dimmed mt-0.5 shrink-0" />
         <div>
-          <div class="text-dimmed text-xs uppercase tracking-wide mb-1">Sponsor</div>
+          <div class="text-dimmed text-xs uppercase tracking-wide mb-1">
+            Sponsor
+          </div>
           <div class="font-medium">{{ d.sponsor_org.name }}</div>
           <div class="text-dimmed">{{ d.sponsor_org.handle }}</div>
         </div>

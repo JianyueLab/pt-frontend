@@ -12,10 +12,14 @@
         :key="s.label"
         class="rounded-xl border border-default bg-elevated p-4"
       >
-        <div class="text-xs text-dimmed uppercase tracking-wide mb-3 flex items-center gap-1.5">
+        <div
+          class="text-xs text-dimmed uppercase tracking-wide mb-3 flex items-center gap-1.5"
+        >
           <UIcon :name="s.icon" class="text-sm" />
           {{ s.label }}
-          <UBadge size="xs" color="neutral" variant="subtle" class="ml-auto">{{ s.asns.length }}</UBadge>
+          <UBadge size="xs" color="neutral" variant="subtle" class="ml-auto">{{
+            s.asns.length
+          }}</UBadge>
         </div>
         <div v-if="s.asns.length" class="flex flex-wrap gap-x-2 gap-y-1.5">
           <NuxtLink
