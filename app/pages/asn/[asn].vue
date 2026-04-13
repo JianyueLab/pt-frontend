@@ -97,7 +97,7 @@
               <template v-if="rankStatus === 'pending'">
                 <p class="text-base text-dimmed">Loading...</p>
               </template>
-              <template v-else-if="v4Rank || v6Rank">
+              <template v-else-if="v4Rank || v6Rank || downstreamRank || peerRank || coneRank">
                 <ul class="space-y-2">
                   <li v-if="v4Rank" class="text-base">
                     <span class="text-dimmed">#{{ v4Rank }}</span>
@@ -106,6 +106,18 @@
                   <li v-if="v6Rank" class="text-base">
                     <span class="text-dimmed">#{{ v6Rank }}</span>
                     <span class="text-muted ml-1">for IPv6 prefix count</span>
+                  </li>
+                  <li v-if="downstreamRank" class="text-base">
+                    <span class="text-dimmed">#{{ downstreamRank }}</span>
+                    <span class="text-muted ml-1">for downstream count</span>
+                  </li>
+                  <li v-if="peerRank" class="text-base">
+                    <span class="text-dimmed">#{{ peerRank }}</span>
+                    <span class="text-muted ml-1">for peer count</span>
+                  </li>
+                  <li v-if="coneRank" class="text-base">
+                    <span class="text-dimmed">#{{ coneRank }}</span>
+                    <span class="text-muted ml-1">for AS cone size</span>
                   </li>
                 </ul>
               </template>
@@ -305,6 +317,9 @@ const route = useRoute();
 const asn = computed(() => route.params.asn as string);
 const { data, error, status, refresh } = useAsn(asn);
 const { data: rankData, status: rankStatus } = useRankPrefix();
+const { data: downstreamRankData } = useRankDownstream();
+const { data: peerRankData } = useRankPeer();
+const { data: coneRankData } = useRankASCone();
 
 const displayName = computed(() => {
   if (!data.value) return "";
@@ -328,6 +343,24 @@ const v4Rank = computed(() => {
 const v6Rank = computed(() => {
   if (!rankData.value || !data.value) return null;
   const idx = rankData.value.v6.findIndex((e) => e.asn === data.value!.asn);
+  return idx >= 0 ? idx + 1 : null;
+});
+
+const downstreamRank = computed(() => {
+  if (!downstreamRankData.value || !data.value) return null;
+  const idx = downstreamRankData.value.findIndex((e) => e.asn === data.value!.asn);
+  return idx >= 0 ? idx + 1 : null;
+});
+
+const peerRank = computed(() => {
+  if (!peerRankData.value || !data.value) return null;
+  const idx = peerRankData.value.findIndex((e) => e.asn === data.value!.asn);
+  return idx >= 0 ? idx + 1 : null;
+});
+
+const coneRank = computed(() => {
+  if (!coneRankData.value || !data.value) return null;
+  const idx = coneRankData.value.findIndex((e) => e.asn === data.value!.asn);
   return idx >= 0 ? idx + 1 : null;
 });
 
