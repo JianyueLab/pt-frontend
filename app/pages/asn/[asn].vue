@@ -48,7 +48,7 @@
     </div>
 
     <!-- Tabs -->
-    <UTabs :items="tabs" default-value="overview" color="neutral">
+    <UTabs :key="tabs.map(t => t.value).join()" :items="tabs" default-value="overview" color="neutral">
       <template #content="{ item }">
         <!-- Overview tab -->
         <div v-if="item.value === 'overview'" class="pt-5 space-y-8">
@@ -133,24 +133,18 @@
           <!-- Summary bar -->
           <div
             v-if="data.relationships"
-            class="flex gap-8 pb-5 border-b border-default"
+            class="flex flex-wrap gap-8 pb-5 border-b border-default"
           >
             <div>
-              <div class="text-2xl font-bold text-highlighted">
-                {{ data.relationships.upstream_count }}
-              </div>
+              <div class="text-2xl font-bold text-highlighted">{{ data.relationships.upstream_count }}</div>
               <div class="text-sm text-dimmed">Upstreams</div>
             </div>
             <div>
-              <div class="text-2xl font-bold text-highlighted">
-                {{ data.relationships.peer_count }}
-              </div>
+              <div class="text-2xl font-bold text-highlighted">{{ data.relationships.peer_count }}</div>
               <div class="text-sm text-dimmed">Peers</div>
             </div>
             <div>
-              <div class="text-2xl font-bold text-highlighted">
-                {{ data.relationships.downstream_count }}
-              </div>
+              <div class="text-2xl font-bold text-highlighted">{{ data.relationships.downstream_count }}</div>
               <div class="text-sm text-dimmed">Downstreams</div>
             </div>
           </div>
@@ -273,6 +267,11 @@
           </div>
         </div>
 
+        <!-- Whois tab -->
+        <div v-else-if="item.value === 'whois'" class="pt-5">
+          <pre class="text-sm font-mono text-muted p-4 rounded-xl border border-default bg-elevated whitespace-pre-wrap leading-relaxed">{{ data.whois }}</pre>
+        </div>
+
         <!-- Prefixes tab -->
         <div v-else-if="item.value === 'prefixes'" class="pt-5 space-y-5">
           <div
@@ -366,6 +365,9 @@ const tabs = computed(() => {
       label: `Prefixes (${data.value.prefixes.length})`,
       value: "prefixes",
     });
+  }
+  if (data.value?.whois != null) {
+    t.push({ label: "Whois", value: "whois" });
   }
   return t;
 });
