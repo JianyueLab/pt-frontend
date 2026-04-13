@@ -20,12 +20,15 @@ export type AsnData = {
     peers: number[];
     cone: number[];
   } | null;
-  whois: string;
   prefix_count: number;
   v4_count: number;
   v6_count: number;
   v4_size: number;
   v6_size: number;
+};
+
+export type CidrData = {
+  asn: number;
   prefixes: { prefix: string; paths: number[][] }[];
 };
 
@@ -46,9 +49,41 @@ export type RelRankEntry = {
   count: number;
 };
 
+export type TagEntry = {
+  asn: number;
+  name: string;
+  short: string;
+  org_name: string;
+  country: string;
+  website: string;
+  tags: string;
+};
+
 export const useAsn = (asn: Ref<string | number>) =>
   useFetch<AsnData>(() => `${BASE}/api/v1/asn/${asn.value}`, {
     watch: [asn],
+    lazy: true,
+    server: false,
+  });
+
+export const useAsnWhois = (asn: Ref<string | number>) =>
+  useFetch<string>(() => `${BASE}/api/v1/whois/${asn.value}`, {
+    watch: [asn],
+    lazy: true,
+    server: false,
+    responseType: "text",
+  });
+
+export const useAsnCIDR = (asn: Ref<string | number>) =>
+  useFetch<CidrData>(() => `${BASE}/api/v1/cidr/${asn.value}`, {
+    watch: [asn],
+    lazy: true,
+    server: false,
+  });
+
+export const useTag = (tag: Ref<string>) =>
+  useFetch<{ tag: string; asns: TagEntry[] }>(() => `${BASE}/api/v1/tag/${tag.value}`, {
+    watch: [tag],
     lazy: true,
     server: false,
   });

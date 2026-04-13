@@ -281,7 +281,11 @@
 
         <!-- Whois tab -->
         <div v-else-if="item.value === 'whois'" class="pt-5">
-          <pre class="text-sm font-mono text-muted p-4 rounded-xl border border-default bg-elevated whitespace-pre-wrap leading-relaxed">{{ data.whois }}</pre>
+          <div v-if="whoisStatus === 'pending'" class="py-10 flex items-center justify-center gap-2 text-muted">
+            <UIcon name="i-lucide-loader-2" class="animate-spin" />
+            Loading...
+          </div>
+          <pre v-else class="text-sm font-mono text-muted p-4 rounded-xl border border-default bg-elevated whitespace-pre-wrap leading-relaxed">{{ whoisData }}</pre>
         </div>
 
         <!-- Prefixes tab -->
@@ -305,7 +309,11 @@
               </div>
             </div>
           </div>
-          <PrefixTable :prefixes="data.prefixes" />
+          <div v-if="cidrStatus === 'pending'" class="py-10 flex items-center justify-center gap-2 text-muted">
+            <UIcon name="i-lucide-loader-2" class="animate-spin" />
+            Loading...
+          </div>
+          <PrefixTable v-else :prefixes="cidrData?.prefixes ?? []" />
         </div>
       </template>
     </UTabs>
@@ -316,6 +324,8 @@
 const route = useRoute();
 const asn = computed(() => route.params.asn as string);
 const { data, error, status, refresh } = useAsn(asn);
+const { data: whoisData, status: whoisStatus } = useAsnWhois(asn);
+const { data: cidrData, status: cidrStatus } = useAsnCIDR(asn);
 const { data: rankData, status: rankStatus } = useRankPrefix();
 const { data: downstreamRankData } = useRankDownstream();
 const { data: peerRankData } = useRankPeer();
@@ -393,13 +403,11 @@ const tabs = computed(() => {
   if (data.value?.relationships) {
     t.push({ label: "Connectivity", value: "connectivity" });
   }
-  if (data.value?.prefixes?.length) {
-    t.push({
-      label: `Prefixes (${data.value.prefixes.length})`,
-      value: "prefixes",
-    });
+  if (data.value && data.value.prefix_count > 0) {
+    const count = cidrData.value?.prefixes?.length ?? data.value.prefix_count;
+    t.push({ label: `Prefixes (${count})`, value: "prefixes" });
   }
-  if (data.value?.whois != null) {
+  if (data.value) {
     t.push({ label: "Whois", value: "whois" });
   }
   return t;

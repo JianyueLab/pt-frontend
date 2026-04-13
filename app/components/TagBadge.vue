@@ -1,13 +1,18 @@
 <template>
-  <UBadge
+  <NuxtLink
     v-for="id in parseTags(tags)"
     :key="id"
-    :color="TAG_COLORS[id] ?? 'neutral'"
-    variant="outline"
-    size="md"
+    :to="`/tag/${id}`"
   >
-    {{ TAGS[id] }}
-  </UBadge>
+    <UBadge
+      :color="TAG_COLORS[id] ?? 'neutral'"
+      variant="outline"
+      size="md"
+      class="cursor-pointer hover:opacity-80 transition-opacity"
+    >
+      {{ TAGS[id] }}
+    </UBadge>
+  </NuxtLink>
 </template>
 
 <script setup lang="ts">
