@@ -1,4 +1,4 @@
-const BASE = "https://pt-api.jianyuelab.net";
+const BASE = "http://localhost:8080";
 
 export type AsnData = {
   asn: number;
@@ -33,6 +33,7 @@ export type CidrData = {
 };
 
 export type RankEntry = {
+  rank: number;
   asn: number;
   name: string;
   short: string;
@@ -44,6 +45,7 @@ export type RankEntry = {
 };
 
 export type RelRankEntry = {
+  rank: number;
   asn: number;
   name: string;
   count: number;
@@ -82,11 +84,14 @@ export const useAsnCIDR = (asn: Ref<string | number>) =>
   });
 
 export const useTag = (tag: Ref<string>) =>
-  useFetch<{ tag: string; asns: TagEntry[] }>(() => `${BASE}/api/v1/tag/${tag.value}`, {
-    watch: [tag],
-    lazy: true,
-    server: false,
-  });
+  useFetch<{ tag: string; asns: TagEntry[] }>(
+    () => `${BASE}/api/v1/tag/${tag.value}`,
+    {
+      watch: [tag],
+      lazy: true,
+      server: false,
+    },
+  );
 
 export const useRankPrefix = () =>
   useFetch<{ v4: RankEntry[]; v6: RankEntry[] }>(`${BASE}/api/v1/rank/prefix`, {

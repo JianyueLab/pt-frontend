@@ -346,32 +346,32 @@ watchEffect(() => {
 
 const v4Rank = computed(() => {
   if (!rankData.value || !data.value) return null;
-  const idx = rankData.value.v4.findIndex((e) => e.asn === data.value!.asn);
-  return idx >= 0 ? idx + 1 : null;
+  const e = rankData.value.v4.find((e) => e.asn === data.value!.asn);
+  return e?.rank ?? null;
 });
 
 const v6Rank = computed(() => {
   if (!rankData.value || !data.value) return null;
-  const idx = rankData.value.v6.findIndex((e) => e.asn === data.value!.asn);
-  return idx >= 0 ? idx + 1 : null;
+  const e = rankData.value.v6.find((e) => e.asn === data.value!.asn);
+  return e?.rank ?? null;
 });
 
 const downstreamRank = computed(() => {
   if (!downstreamRankData.value || !data.value) return null;
-  const idx = downstreamRankData.value.findIndex((e) => e.asn === data.value!.asn);
-  return idx >= 0 ? idx + 1 : null;
+  const e = downstreamRankData.value.find((e) => e.asn === data.value!.asn);
+  return e?.rank ?? null;
 });
 
 const peerRank = computed(() => {
   if (!peerRankData.value || !data.value) return null;
-  const idx = peerRankData.value.findIndex((e) => e.asn === data.value!.asn);
-  return idx >= 0 ? idx + 1 : null;
+  const e = peerRankData.value.find((e) => e.asn === data.value!.asn);
+  return e?.rank ?? null;
 });
 
 const coneRank = computed(() => {
   if (!coneRankData.value || !data.value) return null;
-  const idx = coneRankData.value.findIndex((e) => e.asn === data.value!.asn);
-  return idx >= 0 ? idx + 1 : null;
+  const e = coneRankData.value.find((e) => e.asn === data.value!.asn);
+  return e?.rank ?? null;
 });
 
 const asnInfoMap = computed(() => {

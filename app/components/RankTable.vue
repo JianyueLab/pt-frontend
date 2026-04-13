@@ -39,7 +39,7 @@
               class="border-t border-default hover:bg-elevated/50 transition-colors"
             >
               <td class="px-4 py-2.5 text-dimmed font-mono text-xs">
-                {{ (page - 1) * perPage + i + 1 }}
+                {{ e.rank }}
               </td>
               <td class="px-4 py-2.5 font-mono">
                 <NuxtLink
